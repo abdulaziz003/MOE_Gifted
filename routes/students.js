@@ -26,7 +26,10 @@ router.get('/', async (req, res) => {
 // POST - Create new Student function Router
 router.post('/', async (req, res) => {
   const student = new Student({
-    name: req.body.name
+    name: req.body.name,
+    nationalID: req.body.nationalID,
+    school: req.body.school,
+    isActive: req.body.isActive
   });
   try {
     const newStudent = await student.save();
