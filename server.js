@@ -11,9 +11,6 @@ const methodOverride = require('method-override');
 const morgan = require('morgan');
 const helmet = require('helmet');
 
-app.use(morgan('common'));
-app.use(helmet());
-
 
 // Connect to db
 mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -39,6 +36,9 @@ app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: false }));
 // using method-override to send request to the server like 'delete' and 'put'
 app.use(methodOverride('_method'));
+
+app.use(morgan('common'));
+app.use(helmet());
 
 // Routes
 app.use("/", require("./routes/index"));
