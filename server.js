@@ -8,6 +8,12 @@ const expressLayouts = require("express-ejs-layouts");
 const mongoose = require("mongoose");
 const methodOverride = require('method-override');
 
+const morgan = require('morgan');
+const helmet = require('helmet');
+
+app.use(morgan('common'));
+app.use(helmet());
+
 
 // Connect to db
 mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true, useUnifiedTopology: true });
