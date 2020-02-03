@@ -24,6 +24,10 @@ const examSchema = new mongoose.Schema({
   isActive: {
     type: Boolean,
     default: true
+  },
+  isPublished:{
+    type: Boolean,
+    default: false
   }
 });
 

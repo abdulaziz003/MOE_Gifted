@@ -1,8 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-// Import Student model to create new Student
-const Student = require('../models/Student');
+// Import Course model to create new Course
 const Course = require('../models/Course');
 
 // Get all Courses Route
@@ -32,91 +31,86 @@ router.post('/', async (req, res) => {
     isActive: req.body.isActive
   });
   try {
-    const newStudent = await student.save();
-    res.redirect(`students/${newStudent.id}`);
+    const newCourse = await course.save();
+    res.redirect(`courses/${newCourse.id}`);
   } catch {
-    res.render('students/new', {
-      title: 'طالب جديد',
-      student: student,
-      errorMessage: 'error creating Student'
+    res.render('courses/new', {
+      title: 'دورة جديدة',
+      course: course,
+      errorMessage: 'error creating Course'
     })
   }
 });
 
-// Display Create new Student Form Route
+// Display Create new Course Form Route
 router.get('/new', (req, res) => {
-  res.render('students/new', { title: 'طالب جديد', student: new Student() });
+  res.render('courses/new', { title: 'دورة جديدة', course: new Course() });
 });
 
 
-// Show Student
+// Show Course
 router.get('/:id', async (req, res) => {
   try {
-    const student = await Student.findById(req.params.id);
-    const courses = await Student.findById(req.params.id).populate('courses').exec();
-    const exams = await Student.findById(req.params.id).populate('exams').exec();
-    res.render('students/show', {
-      title: 'عرض بيانات طالب',
-      student: student,
-      enrolledCourses: courses,
-      takenExams: exams
+    const course = await Course.findById(req.params.id);
+    res.render('courses/show', {
+      title: 'عرض بيانات دورة',
+      course: course
     });
 
   } catch{
-    res.redirect('/students');
+    res.redirect('/courses');
   }
 });
 
 
-// Edit Student
+// Edit Course
 router.get('/:id/edit', async (req, res) => {
   try {
-    const student = await Student.findById(req.params.id);
-    res.render('students/edit', { title: 'تعديل بيانات طالب', student: student });
+    const course = await Course.findById(req.params.id);
+    res.render('courses/edit', { title: 'تعديل بيانات دورة', course: course });
   } catch{
-    res.redirect('/students');
+    res.redirect('/courses');
   }
 });
 
-// Update Student
+// Update Course
 router.put('/:id', async (req, res) => {
-  let student;
+  let course;
   try {
-    student = await Student.findById(req.params.id);
-    student.name = req.body.name;
-    student.school = req.body.school;
-    student.nationalID = req.body.nationalID;
-    student.updatedAt = Date.now();
-    student.isActive = req.body.isActive;
+    course = await Course.findById(req.params.id);
+    course.name = req.body.name;
+    course.duration = req.body.duration;
+    course.updatedAt = Date.now();
+    course.isActive = req.body.isActive;
     // student.exams.push() // TODO deleting and adding exams and courses
 
-    await student.save();
-    res.redirect(`/students/${student.id}`);
+    await course.save();
+    res.redirect(`/courses/${course.id}`);
   } catch {
-    if (student == null) {
-      res.redirect('students');
+    if (course == null) {
+      res.redirect('courses');
     } else {
-      res.render('students/edit', {
-        title: 'تعديل بيانات طالب',
-        student: student,
-        errorMessage: 'error updating an Student'
+      res.render('courses/edit', {
+        title: 'تعديل بيانات دورة',
+        course: course,
+        errorMessage: 'error updating an Course'
       })
     }
   }
 });
 
-// Delete Student
+// Delete Course
 router.delete('/:id', async (req, res) => {
-  let student;
+  let course;
   try {
-    student = await Student.findById(req.params.id);
-    await student.remove();
-    res.redirect(`/students`);
+    course = await Course.findById(req.params.id);
+    await course.remove();
+    res.redirect(`/courses`);
   } catch {
-    if (student == null) {
-      res.redirect('/students');
+    if (course == null) {
+      res.redirect('/courses');
     } else {
-      res.redirect(`/students/${student.id}`);
+      res.redirect(`/courses/${course.id}`);
     }
   }
 });

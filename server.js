@@ -38,6 +38,7 @@ app.use(methodOverride('_method'));
 app.use("/", require("./routes/index"));
 app.use("/dashboard", require("./routes/dashboard"));
 app.use("/students", require("./routes/students"));
+app.use("/courses", require("./routes/courses"));
 
 
 // Listen on Port 5000
