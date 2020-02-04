@@ -3,7 +3,7 @@
 
 <br>
 
-<a class="btn btn-success" href="/exams/new">اضافة اختبار جديد</a>
+<a class="btn btn-success" href="/examinations/new">اضافة اختبار جديد</a>
 
 <br>
 <br>
@@ -34,12 +34,12 @@
           </td>
           <td>
             <span>
-              <a class="btn btn-sm btn-success" href="/exams/<%=exam.id%>">عرض </a>
+              <a class="btn btn-sm btn-success" href="/examinations/<%=exam.id%>">عرض </a>
             </span>
             <span>
-              <a class="btn btn-sm btn-info" href="/exams/<%=exam.id%>/edit">تعديل </a>
+              <a class="btn btn-sm btn-info" href="/examinations/<%=exam.id%>/edit">تعديل </a>
             </span>
-            <%- include('../partials/deleteForm', { url: `/exams/${exam.id}` }) %>
+            <%- include('../partials/deleteForm', { url: `/examinations/${exam.id}` }) %>
           </td>
         </tr>
         <% }) %>
