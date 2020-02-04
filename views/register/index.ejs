@@ -1,0 +1,23 @@
+<form class="form-signin" action="/register" method="POST">
+  <div class="input-group mb-3">
+    <div class="input-group-append">
+      <label class="input-group-text" for="inputGroupSelect02">الاختبار</label>
+    </div>
+    <select name="exam" class="custom-select" id="inputGroupSelect02" required>
+      <option value=''>اختر الاختبار</option>
+      <% exams.forEach(exam => { %>
+          <option value=<%=exam.id%>>
+              <%=exam.name%>
+          </option>
+      <% }) %>
+    </select>
+  </div>
+
+  <select name="students" class="custom-select" multiple size="4">
+    <option selected>اختر الطلاب</option>
+    <% students.forEach(student => { %>
+    <option value="<%= student.id %>"><%= student.name %></option>
+    <% }) %>
+  </select>
+  <button class="btn btn-primary" type="submit">تسجيل</button>
+</form>

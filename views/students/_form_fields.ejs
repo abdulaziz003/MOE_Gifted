@@ -2,22 +2,4 @@
 <input class="input-group mb-3" type="number" name="nationalID" placeholder="السجل المدني" value="<%= student.nationalID %>" required>
 <input class="input-group mb-3" type="text" name="school" placeholder="اسم المدرسة" value="<%= student.school %>" required>
 
-<div class="input-group mb-3">
-  <div class="input-group-append">
-    <label class="input-group-text" for="inputGroupSelect02">اختر الاختبار</label>
-  </div>
-  <select name="exams" class="custom-select" id="inputGroupSelect02" required>
-    <option value=''>اختر الاختبار</option>
-    <% for(var i=0; i< exams.length; i++) {%>
-      <%if (exams[i].id == student.exams.exam){%>
-        <option selected value=<%=exams[i].id%>>
-          <%=exams[i].name%>
-        </option>
-        <%}else{%>
-          <option value=<%=exams[i].id%>>
-            <%=exams[i].name%>
-          </option>
-          <%}%>
-            <%}%>
-  </select>
-</div>
+
