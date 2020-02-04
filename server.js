@@ -51,7 +51,7 @@ app.use("/", require("./routes/index"));
 app.use("/dashboard", require("./routes/dashboard"));
 app.use("/students", require("./routes/students"));
 app.use("/courses", require("./routes/courses"));
-app.use("/exams", require("./routes/exams"));
+app.use("/examinations", require("./routes/examinations"));
 app.use('/register', require('./routes/register'));
 
 

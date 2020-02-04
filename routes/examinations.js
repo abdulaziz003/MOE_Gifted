@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
   }
   try {
     const exams = await Exam.find(searchOptions);
-    res.render('exams/index', {
+    res.render('examinations/index', {
       title: 'جميع الاختبارات',
       exams: exams,
       momentHijri: momentHijri,
@@ -38,9 +38,9 @@ router.post('/', async (req, res) => {
   });
   try {
     const newExam = await exam.save();
-    res.redirect(`exams/${newExam.id}`);
+    res.redirect(`examinations/${newExam.id}`);
   } catch {
-    res.render('exams/new', {
+    res.render('examinations/new', {
       title: 'اختبار جديد',
       exam: exam,
       errorMessage: 'error creating Exam'
@@ -51,7 +51,7 @@ router.post('/', async (req, res) => {
 // Display Create new Exam Form Route
 router.get('/new', (req, res) => {
   const exam = new Exam();
-  res.render('Exams/new', { 
+  res.render('examinations/new', { 
     title: 'اختبار جديدة',
     exam: exam,
     momentHijri: momentHijri
@@ -63,7 +63,7 @@ router.get('/new', (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const exam = await Exam.findById(req.params.id);
-    res.render('exams/show', {
+    res.render('examinations/show', {
       title: 'عرض بيانات اختبار',
       exam: exam,
       user: null,
@@ -71,7 +71,7 @@ router.get('/:id', async (req, res) => {
     });
 
   } catch{
-    res.redirect('/exams');
+    res.redirect('/examinations');
   }
 });
 
@@ -80,9 +80,9 @@ router.get('/:id', async (req, res) => {
 router.get('/:id/edit', async (req, res) => {
   try {
     const exam = await Exam.findById(req.params.id);
-    res.render('exams/edit', { title: 'تعديل بيانات اختبار', exam: exam });
+    res.render('examinations/edit', { title: 'تعديل بيانات اختبار', exam: exam });
   } catch{
-    res.redirect('/exams');
+    res.redirect('/examinations');
   }
 });
 
@@ -98,12 +98,12 @@ router.put('/:id', async (req, res) => {
     // student.exams.push() // TODO deleting and adding exams and exams
 
     await exam.save();
-    res.redirect(`/exams/${exam.id}`);
+    res.redirect(`/examinations/${exam.id}`);
   } catch {
     if (exam == null) {
-      res.redirect('exams');
+      res.redirect('/examinations');
     } else {
-      res.render('exams/edit', {
+      res.render('examinations/edit', {
         title: 'تعديل بيانات اختبار',
         exam: exam,
         errorMessage: 'error updating an Exam'
@@ -118,12 +118,12 @@ router.delete('/:id', async (req, res) => {
   try {
     exam = await Exam.findById(req.params.id);
     await exam.remove();
-    res.redirect(`/exams`);
+    res.redirect(`/examinations`);
   } catch {
     if (exam == null) {
-      res.redirect('/exams');
+      res.redirect('/examinations');
     } else {
-      res.redirect(`/exams/${course.id}`);
+      res.redirect(`/examinations/${course.id}`);
     }
   }
 });
