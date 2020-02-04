@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const momentHijri = require('moment-hijri');
 
 // Import Exam model to create new Exam
 const Exam = require('../models/Exam');
@@ -15,6 +16,7 @@ router.get('/', async (req, res) => {
     res.render('exams/index', {
       title: 'جميع الاختبارات',
       exams: exams,
+      momentHijri: momentHijri,
       searchOptions: req.query
     });
   } catch {
@@ -24,12 +26,15 @@ router.get('/', async (req, res) => {
 
 // POST - Create new Exam function Router
 router.post('/', async (req, res) => {
+  momentHijri.locale("en");
+  // Convert from Hijri to Gregorian
+  let gregorianDate = momentHijri(req.body.publishedAt, "iYYYY/iM/iD").format(
+    "YYYY-M-D"
+  ); // 2014-11-28
   const exam = new Exam({
     name: req.body.name,
-    totalMark: req.body.totalMark,
-    publishedAt: req.body.publishedAt,
-    isActive: req.body.isActive,
-    isPublished: req.body.isPublished
+    totalMark: Number.parseInt(req.body.totalMark),
+    publishedAt: gregorianDate
   });
   try {
     const newExam = await exam.save();
@@ -45,7 +50,11 @@ router.post('/', async (req, res) => {
 
 // Display Create new Exam Form Route
 router.get('/new', (req, res) => {
-  res.render('Exam/new', { title: 'اختبار جديدة', exam: new Exam() });
+  res.render('Exams/new', { 
+    title: 'اختبار جديدة',
+     exam: new Exam(),
+    momentHijri: momentHijri
+     });
 });
 
 
@@ -55,7 +64,9 @@ router.get('/:id', async (req, res) => {
     const exam = await Exam.findById(req.params.id);
     res.render('exams/show', {
       title: 'عرض بيانات دورة',
-      exam: exam
+      exam: exam,
+      user: null,
+      momentHijri: momentHijri
     });
 
   } catch{

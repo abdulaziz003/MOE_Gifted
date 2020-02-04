@@ -9,14 +9,6 @@ const examSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  createdAt: {
-    type: Date,
-    default: Date.now
-  },
-  updatedAt: {
-    type: Date,
-    default: Date.now
-  },
   publishedAt: {
     type: Date,
     required: true
@@ -27,9 +19,13 @@ const examSchema = new mongoose.Schema({
   },
   isPublished:{
     type: Boolean,
-    default: false
-  }
-});
+    default: true
+  },
+  students: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Student'
+  }]
+},{timestamps: true});
 
 const Exam = mongoose.model("Exam", examSchema);
 module.exports = Exam;

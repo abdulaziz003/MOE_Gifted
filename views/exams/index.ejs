@@ -1,1 +1,49 @@
-<h1>Show all exams</h1>
+<% momentHijri.locale("en") %>
+<h2>جميع الاختبارات</h2>
+
+<br>
+
+<a class="btn btn-success" href="/exams/new">اضافة اختبار جديد</a>
+
+<br>
+<br>
+<% if(exams.length > 0 ){ %>
+  <table class="table table-striped table-sm">
+    <thead>
+      <tr>
+        <th scope="col">اسم الطالب</th>
+        <th scope="col">السجل المدني</th>
+        <th scope="col">المدرسة</th>
+        <th scope="col">الاجراءات</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% exams.forEach(exam => { %>
+        <!-- On rows -->
+        <tr>
+          <td>
+            <%= exam.name %>
+          </td>
+          <td>
+            <%= exam.totalMark %>
+          </td>
+          <td>
+            <%let gda = momentHijri(exam.publishedAt).format("YYYY-MM-DD")%>
+            <%= momentHijri(gda, " YYYY-M-D ").format("iYYYY/iM/iD ") %>
+          </td>
+          <td>
+            <span>
+              <a class="btn btn-sm btn-success" href="/exams/<%=exam.id%>">عرض </a>
+            </span>
+            <span>
+              <a class="btn btn-sm btn-info" href="/exams/<%=exam.id%>/edit">تعديل </a>
+            </span>
+            <%- include('../partials/deleteForm', { url: `/exams/${exam.id}` }) %>
+          </td>
+        </tr>
+        <% }) %>
+    </tbody>
+  </table>
+  <% }else{ %>
+    <h4>لايوجد طلاب</h4>
+    <% } %>

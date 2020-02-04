@@ -1,0 +1,11 @@
+
+<input class="input-group mb-3" type="text" name="name" placeholder="اسم الاختبار" value="<%= exam.name %>" required autofocus>
+<input class="input-group mb-3" type="number" name="totalMark" placeholder="الدرجة الكلية" value="<%= exam.totalMark %>" required>
+<%let gda = momentHijri(exam.publishedAt).format("YYYY-MM-DD")%>
+<div class="input-group date">
+  <input name='publishedAt' type="text" id="paper-date" class="form-control" placeholder="تاريخ الاختبار" required autocomplete="off"
+    value="<%= exam.publishedAt ? momentHijri(gda, " YYYY-M-D ").format("iYYYY/iM/iD") : '' %>">
+  <span class="input-group-addon">
+    <span class="glyphicon glyphicon-calendar"></span>
+  </span>
+</div>
