@@ -1,1 +1,11 @@
-<h1>create new student page</h1>
+<h2>اضافة طالب جديد</h2>
+
+<br>
+
+<div class="form-signin">
+  <form action="/students" method="post">
+    <%- include('_form_fields') %>
+    <input type="hidden" name="quickAdd" value="false">
+      <button class="btn btn-primary" type="submit">حفظ طالب جديد</button>
+  </form>
+</div>

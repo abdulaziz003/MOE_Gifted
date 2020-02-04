@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
+let momentHijri = require("moment-hijri");
+
 // Import Student model to create new Student
 const Student = require('../models/Student');
 const Course = require('../models/Course');
@@ -15,6 +17,7 @@ router.get('/', async (req, res) => {
     const students = await Student.find(searchOptions);
     res.render('students/index', {
       title: 'جميع الطلاب',
+      student: new Student(),
       students: students,
       searchOptions: req.query
     });
@@ -28,13 +31,18 @@ router.post('/', async (req, res) => {
   const student = new Student({
     name: req.body.name,
     nationalID: req.body.nationalID,
-    school: req.body.school,
-    isActive: req.body.isActive
+    school: req.body.school
   });
   try {
     const newStudent = await student.save();
-    res.redirect(`students/${newStudent.id}`);
-  } catch {
+    console.log(req.body.quickAdd);
+    if(req.body.quickAdd == true){
+      res.redirect('/students');
+    }else{
+      res.redirect(`students/${newStudent.id}`);
+    }
+  } catch(err) {
+    console.log(err);
     res.render('students/new', {
       title: 'طالب جديد',
       student: student,
@@ -58,11 +66,14 @@ router.get('/:id', async (req, res) => {
     res.render('students/show', {
       title: 'عرض بيانات طالب',
       student: student,
+      momentHijri: momentHijri,
+      user: null,
       enrolledCourses: courses,
       takenExams: exams
     });
 
-  } catch{
+  } catch(err){
+    console.log(err);
     res.redirect('/students');
   }
 });

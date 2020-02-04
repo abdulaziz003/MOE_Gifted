@@ -13,7 +13,13 @@ const helmet = require('helmet');
 
 
 // Connect to db
-mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true, useUnifiedTopology: true });
+
+// Check if we are running in the dev or local
+if (process.env.NODE_ENV !== 'production') {
+  mongoose.connect("mongodb://localhost/moe_gifted", { useNewUrlParser: true, useUnifiedTopology: true });
+}else{
+  mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true, useUnifiedTopology: true });
+}
 const db = mongoose.connection;
 
 //check for connection

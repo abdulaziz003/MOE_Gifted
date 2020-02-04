@@ -1,1 +1,54 @@
-<h1> student index page</h1>
+<h2>جميع الطلاب</h2>
+
+<br>
+
+<div class="form-signin">
+  <label class="text-right" for="">اضافة سريعة لطالب جديد</label>
+  <form action="/students" method="post">
+    <%- include('_form_fields') %>
+    <input type="hidden" name="quickAdd" value="true">
+    <button class="btn btn-primary" type="submit">حفظ طالب جديد</button>
+  </form>
+</div>
+
+<br>
+<br>
+<% if(students.length > 0 ){ %>
+  <table class="table table-striped table-sm">
+    <thead>
+      <tr>
+        <th scope="col">اسم الطالب</th>
+        <th scope="col">السجل المدني</th>
+        <th scope="col">المدرسة</th>
+        <th scope="col">الاجراءات</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% students.forEach(student => { %>
+        <!-- On rows -->
+        <tr>
+          <td>
+            <%= student.name %>
+          </td>
+          <td>
+            <%= student.nationalID %>
+          </td>
+          <td>
+            <%= student.school %>
+          </td>
+          <td>
+            <span>
+              <a class="btn btn-sm btn-success" href="/students/<%=student.id%>">عرض </a>
+            </span>
+            <span>
+              <a class="btn btn-sm btn-info" href="/students/edit/<%=student.id%>">تعديل </a>
+            </span>
+              <%- include('../partials/deleteForm', { url: `/students/${student.id}` }) %>
+          </td>
+        </tr>
+        <% }) %>
+    </tbody>
+  </table>
+  <% }else{ %>
+    <h4>لايوجد طلاب</h4>
+    <% } %>
