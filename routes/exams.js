@@ -49,10 +49,11 @@ router.post('/', async (req, res) => {
 });
 
 // Display Create new Exam Form Route
-router.get('/add', (req, res) => {
-  res.render('Exams/add', { 
+router.get('/new', (req, res) => {
+  const exam = new Exam();
+  res.render('Exams/new', { 
     title: 'اختبار جديدة',
-     exam: new Exam(),
+    exam: exam,
     momentHijri: momentHijri
      });
 });
