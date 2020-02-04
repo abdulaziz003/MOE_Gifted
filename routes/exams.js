@@ -63,7 +63,7 @@ router.get('/:id', async (req, res) => {
   try {
     const exam = await Exam.findById(req.params.id);
     res.render('exams/show', {
-      title: 'عرض بيانات دورة',
+      title: 'عرض بيانات اختبار',
       exam: exam,
       user: null,
       momentHijri: momentHijri

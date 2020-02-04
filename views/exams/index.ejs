@@ -1,4 +1,4 @@
-<% momentHijri.locale("en") %>
+
 <h2>جميع الاختبارات</h2>
 
 <br>
@@ -28,6 +28,7 @@
             <%= exam.totalMark %>
           </td>
           <td>
+            <% momentHijri.locale("en") %>
             <%let gda = momentHijri(exam.publishedAt).format("YYYY-MM-DD")%>
             <%= momentHijri(gda, " YYYY-M-D ").format("iYYYY/iM/iD ") %>
           </td>
