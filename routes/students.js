@@ -6,6 +6,7 @@ let momentHijri = require("moment-hijri");
 // Import Student model to create new Student
 const Student = require('../models/Student');
 const Course = require('../models/Course');
+const Exam = require('../models/Exam');
 
 // Get all Students Route
 router.get('/', async (req, res) => {
@@ -52,8 +53,15 @@ router.post('/', async (req, res) => {
 });
 
 // Display Create new Student Form Route
-router.get('/new', (req, res) => {
-  res.render('students/new', { title: 'طالب جديد',student: new Student() });
+router.get('/new', async (req, res) => {
+  const exams = await Exam.find({});
+  const courses = await Course.find({});
+  res.render('students/new', { 
+    title: 'طالب جديد',
+    student: new Student(),
+    exams: exams,
+    courses: courses
+  });
 });
 
 

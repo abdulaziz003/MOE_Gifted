@@ -2,14 +2,7 @@
 
 <br>
 
-<div class="form-signin">
-  <label class="text-right" for="">اضافة سريعة لطالب جديد</label>
-  <form action="/students" method="post">
-    <%- include('_form_fields') %>
-    <input type="hidden" name="quickAdd" value="true">
-    <button class="btn btn-primary" type="submit">حفظ طالب جديد</button>
-  </form>
-</div>
+<a class="btn btn-success" href="/students/new">اضافة طالب جديد</a>
 
 <br>
 <br>
@@ -41,7 +34,7 @@
               <a class="btn btn-sm btn-success" href="/students/<%=student.id%>">عرض </a>
             </span>
             <span>
-              <a class="btn btn-sm btn-info" href="/students/edit/<%=student.id%>">تعديل </a>
+              <a class="btn btn-sm btn-info" href="/students/<%=student.id%>/edit">تعديل </a>
             </span>
               <%- include('../partials/deleteForm', { url: `/students/${student.id}` }) %>
           </td>
