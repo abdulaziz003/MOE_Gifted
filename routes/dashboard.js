@@ -13,4 +13,14 @@ router.get("/", (req, res) => {
     res.redirect('/');
   }
 });
+// Dashboard Panel
+router.get("/d", (req, res) => {
+  try {
+    res.render('dashboard/dashboard', {
+      title: "لوحة التحكم"
+    });
+  } catch {
+    res.redirect('/');
+  }
+});
 module.exports = router;
