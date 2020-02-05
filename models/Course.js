@@ -24,7 +24,11 @@ const courseSchema = new mongoose.Schema({
   isActive: {
     type: Boolean,
     default: true
-  }
+  },
+  students: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Student'
+  }]
 });
 
 const Course = mongoose.model("Course", courseSchema);

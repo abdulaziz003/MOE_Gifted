@@ -1,5 +1,9 @@
 <h2>جميع الطلاب</h2>
-
+<form action="/students" method="get">
+  <label for="author-name">اسم الطالب</label>
+  <input type="text" name="name" id="author-name" value="<%= searchOptions.name%>">
+  <button type="submit">بحث</button>
+</form>
 <br>
 
 <a class="btn btn-success" href="/students/new">اضافة طالب جديد</a>
@@ -13,6 +17,7 @@
         <th scope="col">اسم الطالب</th>
         <th scope="col">السجل المدني</th>
         <th scope="col">المدرسة</th>
+        <th scope="col">عدد الاختبارات</th>
         <th scope="col">الاجراءات</th>
       </tr>
     </thead>
@@ -28,6 +33,9 @@
           </td>
           <td>
             <%= student.school %>
+          </td>
+          <td>
+            <%= student.exams.length %>
           </td>
           <td>
             <span>

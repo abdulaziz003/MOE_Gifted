@@ -84,8 +84,10 @@
                     <label form="paper-subject">الاختبارات</label>
                   </div>
                   <div class="col-sm-8 align-self-center">
-                    <input name='exams' type="text" disabled id="paper-subject" class="form-control mt-2" placeholder="الاختبارات" required
-                      value="<%= student.exams %>">
+                    <% takenExams.forEach(exam => { %>
+                      <input name='exams' type="text" disabled id="paper-subject" class="form-control mt-2" placeholder="الاختبارات" required
+                        value="<%= exam.name %>">
+                    <% }) %>
                   </div>
                 </div>
 

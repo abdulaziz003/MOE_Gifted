@@ -69,8 +69,8 @@ router.get('/new', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const student = await Student.findById(req.params.id);
-    const courses = await Student.findById(req.params.id).populate('courses').exec();
-    const exams = await Student.findById(req.params.id).populate('exams').exec();
+    const courses = await Student.findById(req.params.id);
+    const exams = await Exam.find({students: req.params.id});
     res.render('students/show', {
       title: 'عرض بيانات طالب',
       student: student,
@@ -107,7 +107,6 @@ router.put('/:id', async (req, res) => {
     student.nationalID = req.body.nationalID;
     student.updatedAt = Date.now();
     student.isActive = req.body.isActive;
-    // student.exams.push() // TODO deleting and adding exams and courses
 
     await student.save();
     res.redirect(`/students/${student.id}`);
