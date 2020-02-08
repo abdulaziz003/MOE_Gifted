@@ -32,16 +32,41 @@ router.post('/', async (req, res) => {
   const student = new Student({
     name: req.body.name,
     nationalID: req.body.nationalID,
-    school: req.body.school
+    school: req.body.school,
   });
-  try {
-    const newStudent = await student.save();
-    console.log(req.body.quickAdd);
-    if(req.body.quickAdd == true){
-      res.redirect('/students');
-    }else{
-      res.redirect(`students/${newStudent.id}`);
+
+  if(req.body.isExam1Checked){
+    const exam1 = {
+      name: req.body.level_1_name,
+      studentMark: req.body.level_1_mark,
+      isTaken: true,
+      examDate: req.body.level_1_year
     }
+    student.exams.push(exam1);
+  }
+
+  if(req.body.isExam2Checked){
+    const exam2 = {
+      name: req.body.level_2_name,
+      studentMark: req.body.level_2_mark,
+      isTaken: true,
+      examDate: req.body.level_2_year
+    }
+    student.exams.push(exam2);
+  }
+
+  if(req.body.isExam3Checked){
+    const exam3 = {
+      name: req.body.level_3_name,
+      studentMark: req.body.level_3_mark,
+      isTaken: true,
+      examDate: req.body.level_3_year
+    }
+    student.exams.push(exam3);
+  }
+  try {
+    await student.save();
+    res.redirect('/students');
   } catch(err) {
     console.log(err);
     res.render('students/new', {
@@ -54,23 +79,25 @@ router.post('/', async (req, res) => {
 
 // Display Create new Student Form Route
 router.get('/new', async (req, res) => {
-  const exams = await Exam.find({});
   const courses = await Course.find({});
   res.render('students/new', { 
     title: 'طالب جديد',
     student: new Student(),
-    exams: exams,
-    courses: courses
+    courses: courses,
+    momentHijri: momentHijri
   });
 });
 
 
 // Show Student
 router.get('/:id', async (req, res) => {
+  const studentId = req.params.id
   try {
     const student = await Student.findById(req.params.id);
     const courses = await Student.findById(req.params.id);
-    const exams = await Exam.find({students: req.params.id});
+    // const exams = await Exam.find({students: studentId});
+    const exams = await Exam.students.id(req.params.id);
+    console.log(exams) //TODO
     res.render('students/show', {
       title: 'عرض بيانات طالب',
       student: student,

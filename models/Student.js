@@ -14,15 +14,18 @@ const studentSchema = new mongoose.Schema({
     required: true
   },
   exams: [{
-    exam:{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Exam'
+    name:{
+      type:String
     },
     studentMark: {
       type: Number
     },
-    takenAt: {
-      type: Date
+    isTaken: {
+      type: Boolean,
+      default: false
+    },
+    examDate:{
+      type: String
     }
   }],
   courses: [{

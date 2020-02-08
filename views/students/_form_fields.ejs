@@ -3,3 +3,73 @@
 <input class="input-group mb-3" type="text" name="school" placeholder="اسم المدرسة" value="<%= student.school %>" required>
 
 
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" name="isExam1Checked" value="" id="defaultCheck1" onclick="changeLevelOneExam()">
+  <label class="form-check-label mr-4" for="defaultCheck1">
+    اختبار المستوى الأول
+  </label>
+</div>
+<div class="form-row" id="level-1" hidden>
+  <input type="text" name="level_1_name" id="level_1_name" value="المستوى الاول" hidden>
+  <div class="col">
+    <label for="level-1-mark">الدرجة</label>
+    <input id="level-1-mark" type="number" class="form-control" name="level_1_mark" style="padding: 4px">
+  </div>
+  <div class="col">
+    <label for="level-1-year">العام</label>
+    <select id="level-1-year" class="form-control">
+      <% for( let index = 1410; index < 1490; index++ ) { %>
+        <option value="<%= index %> " ><%= index %> </option>
+      <% } %>
+    </select>
+  </div>
+</div>
+
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" name="isExam2Checked" value="" id="defaultCheck2" onclick="changeLevelTwoExam()">
+  <label class="form-check-label mr-4" for="defaultCheck2">
+    اختبار المستوى الثاني
+  </label>
+</div>
+<div class="form-row" id="level-2" hidden>
+  <input type="text" name="level_2_name" id="level_2_name" value="المستوى الثاني" hidden>
+  <div class="col">
+    <label for="level-2-mark">الدرجة</label>
+    <input id="level-2-mark" type="number" class="form-control" name="level_2_mark" style="padding: 4px">
+  </div>
+  <div class="col">
+    <label for="level-2-year">العام</label>
+    <select id="level-2-year" class="form-control">
+      <% for( let index = 1410; index < 1490; index++ ) { %>
+        <option value="<%= index %> " ><%= index %> </option>
+      <% } %>
+    </select>
+  </div>
+</div>
+
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" name="isExam3Checked" value="" id="defaultCheck3" onclick="changeLevelThreeExam()">
+  <label class="form-check-label mr-4" for="defaultCheck3">
+    اختبار المستوى الثالث
+  </label>
+</div>
+<div class="form-row" id="level-3" hidden>
+  <input type="text" name="level_3_name" id="level_3_name" value="المستوى الثالث" hidden>
+  <div class="col">
+    <label for="level-3-mark">الدرجة</label>
+    <input id="level-3-mark" type="number" class="form-control" name="level_3_mark" style="padding: 4px">
+  </div>
+  <div class="col">
+    <label for="level-3-year">العام</label>
+    <select id="level-3-year" class="form-control">
+      <% for( let index = 1410; index < 1490; index++ ) { %>
+        <option value="<%= index %> " ><%= index %> </option>
+      <% } %>
+    </select>
+  </div>
+</div>
+
+
+
+
+
