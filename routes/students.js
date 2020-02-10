@@ -212,26 +212,7 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-// TODO: DELETE THIS ROUTE
-// Delete Student exam
-router.delete('/:id/delete_exam/:examId', async (req, res) => {
-  let student;
-  const examId = req.params.examId;
-  console.log('deleting student exam');
-  try {
-    student = await Student.findById(req.params.id);
-    const newExams = arrayRemoveElement(student.exams, examId);
-    student.exams = newExams;
-    await student.save();
-    res.redirect(`/students/<%=student.id%>/edit`);
-  } catch {
-    if (student == null) {
-      res.redirect('/students');
-    } else {
-      res.redirect(`/students/${student.id}`);
-    }
-  }
-});
+
 
 // remove element from array
 function arrayRemoveElement(array, value) {

@@ -1,8 +1,10 @@
 @import url("https://fonts.googleapis.com/css?family=Amiri|Changa");
+@import url('https://fonts.googleapis.com/css?family=Almarai&display=swap');
 
 html,
 body {
-  font-family: "Changa", sans-serif;
+  /* font-family: "Changa", sans-serif; */
+  font-family: "Almarai", sans-serif;
   height: 100%;
 }
 

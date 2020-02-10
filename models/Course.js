@@ -18,7 +18,7 @@ const courseSchema = new mongoose.Schema({
     default: Date.now
   },
   publishedAt: {
-    type: Date,
+    type: String,
     required: true
   },
   isActive: {
