@@ -52,7 +52,8 @@ function changeLevelThreeExam() {
 
 // check the checkbox value for course-is-active => courses => edit.ejs
 function changeCourseActive() {
-  let checkbox = document.getElementById("course-is-active-checkbox");
+  // let checkbox = document.getElementById("course-is-active-checkbox");
+  let checkbox = document.getElementById("customSwitch1");
   if (checkbox.checked) {
     checkbox.setAttribute("value", true);
   } else {

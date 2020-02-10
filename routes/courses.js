@@ -5,6 +5,7 @@ let momentHijri = require("moment-hijri");
 
 // Import Course model to create new Course
 const Course = require('../models/Course');
+const Student = require('../models/Student');
 
 // Get all Courses Route
 router.get('/', async (req, res) => {
@@ -65,6 +66,69 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+// Show adding students to Course
+router.get('/:id/register', async (req, res) => {
+  try {
+    const course = await Course.findById(req.params.id);
+    const students = await Student.find({});
+    res.render('courses/register', {
+      title: 'تسجيل طلاب بالدورة',
+      course: course,
+      students: students,
+      momentHijri: momentHijri
+    });
+  } catch{
+    res.redirect('/courses');
+  }
+});
+
+// Show adding students to Course
+router.post('/:id/register', async (req, res) => {
+  let course;
+  let student;
+  const studentsList = req.body.studentInCourse;
+  console.log(studentsList);
+  console.log(Array.isArray(studentsList));
+  let isAnArray = Array.isArray(studentsList);
+  try {
+    if(isAnArray){
+      course = await Course.findById(req.params.id);
+      studentsList.forEach(async studentId =>{
+        course.students.push(studentId);
+        student = await Student.findById(studentId);
+        student.courses.push(course.id);
+        await student.save();
+      });
+      await course.save();
+    } else {
+      course = await Course.findById(req.params.id);
+      course.students.push(studentsList);
+      student = await Student.findById(studentsList);
+      student.courses.push(course.id);
+      await student.save();
+      await course.save();
+    }
+    res.redirect(`/courses/${course.id}/register`);
+  } catch(err){
+    console.log(err);
+    res.redirect('/courses');
+  }
+});
+
+// Show adding students to Course
+router.get('/:id/register', async (req, res) => {
+  try {
+    const course = await Course.findById(req.params.id);
+    res.render('courses/register', {
+      title: 'تسجيل طلاب بالدورة',
+      course: course,
+      momentHijri: momentHijri
+    });
+  } catch{
+    res.redirect('/courses');
+  }
+});
+
 
 // Edit Course
 router.get('/:id/edit', async (req, res) => {
@@ -90,8 +154,11 @@ router.put('/:id', async (req, res) => {
     course.duration = req.body.duration;
     course.publishedAt = req.body.publishedAt;
     course.updatedAt = Date.now();
-    console.log(req.body.isActiveChecked); //TODO: KEEP GIVING UNDEFINED ??!!
-    course.isActive = req.body.isActiveChecked;
+    if(req.body.isActiveToggle){
+      course.isActive = true;
+    }else{
+      course.isActive = false;
+    }
     await course.save();
     res.redirect(`/courses/${course.id}/edit`);
   } catch {
@@ -101,6 +168,8 @@ router.put('/:id', async (req, res) => {
       res.render('courses/edit', {
         title: 'تعديل بيانات دورة',
         course: course,
+        user: null,
+        momentHijri: momentHijri,
         errorMessage: 'error updating an Course'
       })
     }

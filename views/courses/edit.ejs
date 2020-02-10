@@ -67,18 +67,15 @@
               <input class="form-control" placeholder="عدد الطلاب" value="<%= course.students.length%>" disabled>
             </div>
             <div class="col-sm-2 mt-3">
-              <a class="btn btn-sm btn-info " href="/courses/register/<%= course.id %>">اضافة طلاب</a>
+              <a class="btn btn-sm btn-info " href="/courses/<%= course.id %>/register">اضافة طلاب</a>
             </div>
           </div>
 
 
-          <div class="text-right  row mt-2">
-            <div class="col-sm-2">
-              <label>حالة تفعيل البرنامج</label>
-            </div>
-            <div class="col-sm-1">
-              <input name="isActiveChecked" type="checkbox" id="course-is-active-checkbox" class="form-control" value="<%= course.isActive %>" <%= course.isActive ? 'checked' : 'unchecked' %> onclick="changeCourseActive()">
-            </div>
+
+          <div class="custom-control custom-switch text-right mt-3">
+            <input name="isActiveToggle" type="checkbox" class="custom-control-input" id="customSwitch1" value="<%= course.isActive %>" <%= course.isActive ? "checked" : "unchecked" %> onclick="changeCourseActive()">
+            <label class="custom-control-label" for="customSwitch1">حالة تفعيل البرنامج</label>
           </div>
 
 

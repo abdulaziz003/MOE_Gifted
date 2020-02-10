@@ -8,7 +8,6 @@
   <br>
   
   <a class="btn btn-success" href="/courses/new">اضافة برنامج جديد</a>
-  <a class="btn btn-dark" href="/courses/register">اضافة طلاب بالبرنامج</a>
 </div>
 
 <br>
@@ -46,6 +45,9 @@
             </span>
             <span>
               <a style="text-decoration: none;" class="ml-2" href="/courses/<%=course.id%>/edit">✏️ </a>
+            </span>
+            <span>
+              <a style="text-decoration: none;" class="ml-2" href="/courses/<%=course.id%>/register">👨🏻‍🎓</a>
             </span>
             <%- include('../partials/deleteForm', { url: `/courses/${course.id}` }) %>
           </td>
