@@ -52,7 +52,7 @@ app.use("/dashboard", require("./routes/dashboard"));
 app.use("/students", require("./routes/students"));
 app.use("/courses", require("./routes/courses"));
 //app.use("/examinations", require("./routes/examinations"));
-app.use('/register', require('./routes/register'));
+app.use('/certificates', require('./routes/certificates'));
 
 
 // Listen on Port 5000

@@ -1,0 +1,32 @@
+<div class="form-group">
+  <label for="course_name">اسم البرنامج</label>
+  <input name="name" type="text" class="form-control" id="course_name" placeholder="اسم البرنامج الاثرائي" value="<%= course.name %>" required>
+</div>
+<div class="form-group">
+  <label for="course_duration">مدة البرنامج</label>
+  <input name="duration" type="text" class="form-control" id="course_duration" placeholder="مدة البرنامج الاثرائي" value="<%= course.duration %>" required>
+</div>
+
+<div class="form-group">
+  <label for="level-3-year">العام</label>
+  <select name="publishedAt" id="level-3-year" class="form-control">
+    <% for( let index = 1410; index < 1490; index++ ) { %>
+      <% if(course.publishedAt == index){ %>
+        <option selected value="<%= index %> ">
+          <%= index %>
+        </option>
+      <% }else { %>
+        <option value="<%= index %> ">
+          <%= index %>
+        </option>
+      <% } %>
+    <% } %>
+  </select>
+</div>
+
+
+
+
+
+
+

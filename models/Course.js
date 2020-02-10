@@ -9,14 +9,6 @@ const courseSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  createdAt: {
-    type: Date,
-    default: Date.now
-  },
-  updatedAt: {
-    type: Date,
-    default: Date.now
-  },
   publishedAt: {
     type: String,
     required: true
@@ -29,7 +21,7 @@ const courseSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Student'
   }]
-});
+},{timestamps: true});
 
 const Course = mongoose.model("Course", courseSchema);
 module.exports = Course;

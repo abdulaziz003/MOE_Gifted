@@ -1,17 +1,18 @@
+<div class="text-center">
 <h2>جميع الطلاب</h2>
 <form action="/students" method="get">
   <label for="author-name">اسم الطالب</label>
   <input type="text" name="name" id="author-name" value="<%= searchOptions.name%>">
-  <button type="submit">بحث</button>
+  <button class="btn btn-sm btn-warning" type="submit">بحث</button>
 </form>
 <br>
-
-<a class="btn btn-success" href="/students/new">اضافة طالب جديد</a>
+  <a class="btn btn-success" href="/students/new">اضافة طالب جديد</a>
+</div>
 
 <br>
 <br>
 <% if(students.length > 0 ){ %>
-  <table class="table table-striped table-sm">
+  <table class="table table-striped table-sm text-center">
     <thead>
       <tr>
         <th scope="col">اسم الطالب</th>
@@ -59,10 +60,10 @@
           </td>
           <td>
             <span>
-              <a class="ml-2" href="/students/<%=student.id%>">👁</a>
+              <a style="text-decoration: none;" class="ml-2" href="/students/<%=student.id%>">👁</a>
             </span>
             <span>
-              <a class="ml-2" href="/students/<%=student.id%>/edit">✏️ </a>
+              <a style="text-decoration: none;" class="ml-2" href="/students/<%=student.id%>/edit">✏️ </a>
             </span>
               <%- include('../partials/deleteForm', { url: `/students/${student.id}` }) %>
           </td>
@@ -71,5 +72,5 @@
     </tbody>
   </table>
   <% }else{ %>
-    <h4>لايوجد طلاب</h4>
+    <h4 class="text-center">لايوجد طلاب</h4>
     <% } %>

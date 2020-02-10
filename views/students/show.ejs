@@ -1,6 +1,6 @@
 <% momentHijri.locale("en") %>
 
-  <div class="container">
+  <div class="container text-center">
     <img class="mb-4" src="/img/MOElogo.png" alt="" width="125" height="72">
     <h1 class="h3 mb-3 font-weight-normal">عرض بيانات طالب </h1>
 
@@ -22,7 +22,7 @@
                     <label for="student-name">اسم الطالب</label>
                   </div>
                   <div class="col-sm-8">
-                    <input name='name' type="text" disabled id="student-name" class="form-control" placeholder="رقم السجل المدني" required
+                    <input name='name' type="text" disabled id="student-name" class="form-control" placeholder="اسم الطالب" required
                       autofocus value="<%= student.name %>">
                   </div>
                 </div>
@@ -105,7 +105,7 @@
 
                 <div class="text-right  row">
                   <div class="col-sm-2 align-self-center">
-                    <label>مفعل</label>
+                    <label>حالة الطالب</label>
                   </div>
                   <div class="col-sm-8 align-self-center">
                     <input class="form-control mt-2" value="<%= student.isActive ? 'مفعل' : 'غير مفعل' %>" disabled>

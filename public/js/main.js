@@ -50,6 +50,16 @@ function changeLevelThreeExam() {
   }
 }
 
+// check the checkbox value for course-is-active => courses => edit.ejs
+function changeCourseActive() {
+  let checkbox = document.getElementById("course-is-active-checkbox");
+  if (checkbox.checked) {
+    checkbox.setAttribute("value", true);
+  } else {
+    checkbox.setAttribute("value", false);
+  }
+}
+
 
 
 
@@ -60,8 +70,6 @@ function deleteExam(id){
   document.getElementById(`delete-exam-checkbox-${id}`).removeAttribute('unchecked');
   document.getElementById(`delete-exam-checkbox-${id}`).setAttribute('checked', true);
   document.getElementById(`undo-delete-exam-button-${id}`).removeAttribute('hidden');
-  
-  
 }
 
 function undoDeleteExam(id){
