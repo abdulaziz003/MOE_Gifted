@@ -1,0 +1,92 @@
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" name="isExam1Checked" <%= student.exam_level_1.isTaken ? "checked" : "unchecked" %>  value="<%= student.exam_level_1.isTaken %>" id="defaultCheck1" onclick="changeLevelOneExam()">
+  <label class="form-check-label mr-4" for="defaultCheck1">
+    اختبار المستوى الأول
+    <%= student.exam_level_1.examDate %> 
+  </label>
+</div>
+<div class="form-row" id="level-1" <%= student.exam_level_1.isTaken ? "" : "hidden" %>>
+  <input type="text" name="level_1_name" id="level_1_name" value="المستوى الاول" hidden>
+  <div class="col">
+    <label for="level-1-mark">الدرجة</label>
+    <input id="level-1-mark" type="number" class="form-control" name="level_1_mark" style="padding: 4px" value="<%= student.exam_level_1.studentMark %>">
+  </div>
+  <div class="col">
+    <label for="level-1-year">العام</label>
+    <select name="level_1_year" id="level-1-year" class="form-control">
+      <% for( let index = 1410; index < 1490; index++ ) { %>
+        <% if (Number.parseInt(student.exam_level_1.examDate) == index) { %>
+          <option selected value="<%= index %> ">
+            <%= index %>
+          </option>
+          <% }else{ %>
+          <option value="<%= index %> ">
+            <%= index %>
+          </option>
+          <% } %> 
+        <% } %>
+    </select>
+  </div>
+</div>
+
+
+
+<div class="form-check">
+  <input class="form-check-input" <%= student.exam_level_2.isTaken ? "checked" : "unchecked" %> type="checkbox" name="isExam2Checked" value="<%= student.exam_level_2.isTaken %>" id="defaultCheck2" onclick="changeLevelTwoExam()">
+  <label class="form-check-label mr-4" for="defaultCheck2">
+    اختبار المستوى الثاني
+  </label>
+</div>
+<div class="form-row" id="level-2" <%= student.exam_level_2.isTaken ? "" : "hidden" %>>
+  <input type="text" name="level_2_name" id="level_2_name" value="المستوى الثاني" hidden>
+  <div class="col">
+    <label for="level-2-mark">الدرجة</label>
+    <input id="level-2-mark" type="number" class="form-control" name="level_2_mark" style="padding: 4px" value="<%= student.exam_level_2.studentMark %>">
+  </div>
+  <div class="col">
+    <label for="level-2-year">العام</label>
+    <select name="level_2_year" id="level-2-year" class="form-control">
+      <% for( let index = 1410; index < 1490; index++ ) { %>
+        <% if (Number.parseInt(student.exam_level_2.examDate) == index) { %>
+          <option selected value="<%= index %> ">
+            <%= index %>
+          </option>
+        <% }else{ %>
+          <option value="<%= index %> ">
+            <%= index %>
+          </option>
+        <% } %>
+      <% } %>
+    </select>
+  </div>
+</div>
+
+<div class="form-check">
+  <input class="form-check-input" <%= student.exam_level_3.isTaken ? "checked" : "unchecked" %> type="checkbox" name="isExam3Checked" value="<%= student.exam_level_2.isTaken %>" id="defaultCheck3" onclick="changeLevelThreeExam()">
+  <label class="form-check-label mr-4" for="defaultCheck3">
+    اختبار المستوى الثالث
+  </label>
+</div>
+<div class="form-row" id="level-3" <%= student.exam_level_3.isTaken ? "" : "hidden" %>>
+  <input type="text" name="level_3_name" id="level_3_name" value="المستوى الثالث" hidden>
+  <div class="col">
+    <label for="level-3-mark">الدرجة</label>
+    <input id="level-3-mark" type="number" class="form-control" name="level_3_mark" style="padding: 4px" value="<%= student.exam_level_3.studentMark %>">
+  </div>
+  <div class="col">
+    <label for="level-3-year">العام</label>
+    <select name="level_3_year" id="level-3-year" class="form-control">
+      <% for( let index = 1410; index < 1490; index++ ) { %>
+        <% if (Number.parseInt(student.exam_level_3.examDate) == index) { %>
+          <option selected value="<%= index %> ">
+            <%= index %>
+          </option>
+        <% }else{ %>
+          <option value="<%= index %> ">
+            <%= index %>
+          </option>
+        <% } %>
+      <% } %>
+    </select>
+  </div>
+</div>

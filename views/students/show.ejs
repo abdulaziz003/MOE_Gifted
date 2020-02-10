@@ -81,13 +81,15 @@
 
                 <div class="text-right row">
                   <div class="col-sm-2 align-self-center">
-                    <label form="paper-subject">الاختبارات</label>
+                    <label form="paper-subject"> الاختبارات المجتازة</label>
                   </div>
                   <div class="col-sm-8 align-self-center">
-                    <% takenExams.forEach(exam => { %>
-                      <input name='exams' type="text" disabled id="paper-subject" class="form-control mt-2" placeholder="الاختبارات" required
-                        value="<%= exam.name %>">
-                    <% }) %>
+                      <input name='exams' type="text" <%= student.exam_level_1.isTaken ? "" : "hidden" %>  disabled id="paper-subject" class="form-control-inline mt-2" placeholder="الاختبارات" required
+                        value="<%= student.exam_level_1.name %>">
+                      <input name='exams' type="text" <%= student.exam_level_2.isTaken ? "" : "hidden" %> disabled id="paper-subject" class="form-control-inline mt-2" placeholder="الاختبارات" required
+                        value="<%= student.exam_level_2.name %>">
+                      <input name='exams' type="text" <%= student.exam_level_3.isTaken ? "" : "hidden" %> disabled id="paper-subject" class="form-control-inline mt-2" placeholder="الاختبارات" required
+                        value="<%= student.exam_level_3.name %>">
                   </div>
                 </div>
 

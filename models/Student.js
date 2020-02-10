@@ -13,7 +13,7 @@ const studentSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  exams: [{
+  exam_level_1: {
     name:{
       type:String
     },
@@ -27,7 +27,37 @@ const studentSchema = new mongoose.Schema({
     examDate:{
       type: String
     }
-  }],
+  },
+  exam_level_2: {
+    name:{
+      type:String
+    },
+    studentMark: {
+      type: Number
+    },
+    isTaken: {
+      type: Boolean,
+      default: false
+    },
+    examDate:{
+      type: String
+    }
+  },
+  exam_level_3: {
+    name:{
+      type:String
+    },
+    studentMark: {
+      type: Number
+    },
+    isTaken: {
+      type: Boolean,
+      default: false
+    },
+    examDate:{
+      type: String
+    }
+  },
   courses: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Course'

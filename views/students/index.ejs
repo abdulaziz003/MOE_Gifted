@@ -17,7 +17,9 @@
         <th scope="col">اسم الطالب</th>
         <th scope="col">السجل المدني</th>
         <th scope="col">المدرسة</th>
-        <th scope="col">عدد الاختبارات</th>
+        <th scope="col"> اختبار1 </th>
+        <th scope="col"> اختبار2 </th>
+        <th scope="col"> اختبار3 </th>
         <th scope="col">الاجراءات</th>
       </tr>
     </thead>
@@ -35,14 +37,32 @@
             <%= student.school %>
           </td>
           <td>
-            <%= student.exams.length %>
+            <% if (student.exam_level_1.isTaken) { %>
+              <img src="/img/sign-check-icon.png" title="اجتاز الاختبار">
+            <% } else { %>
+              <img src="/img/sign-error-icon.png" title="تم اتخاذ الاجراء">
+            <% } %>
+          </td>
+          <td>
+            <% if (student.exam_level_2.isTaken) { %>
+              <img src="/img/sign-check-icon.png" title="اجتاز الاختبار">
+            <% } else { %>
+              <img src="/img/sign-error-icon.png" title="تم اتخاذ الاجراء">
+            <% } %>
+          </td>
+          <td>
+            <% if (student.exam_level_3.isTaken) { %>
+              <img src="/img/sign-check-icon.png" title="اجتاز الاختبار">
+            <% } else { %>
+              <img src="/img/sign-error-icon.png" title="تم اتخاذ الاجراء">
+            <% } %>
           </td>
           <td>
             <span>
-              <a class="btn btn-sm btn-success" href="/students/<%=student.id%>">عرض </a>
+              <a class="ml-2" href="/students/<%=student.id%>">👁</a>
             </span>
             <span>
-              <a class="btn btn-sm btn-info" href="/students/<%=student.id%>/edit">تعديل </a>
+              <a class="ml-2" href="/students/<%=student.id%>/edit">✏️ </a>
             </span>
               <%- include('../partials/deleteForm', { url: `/students/${student.id}` }) %>
           </td>

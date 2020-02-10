@@ -36,33 +36,32 @@ router.post('/', async (req, res) => {
   });
 
   if(req.body.isExam1Checked){
-    const exam1 = {
+    student.exam_level_1 = {
       name: req.body.level_1_name,
       studentMark: req.body.level_1_mark,
       isTaken: true,
       examDate: req.body.level_1_year
     }
-    student.exams.push(exam1);
   }
 
   if(req.body.isExam2Checked){
-    const exam2 = {
+    student.exam_level_2 = {
       name: req.body.level_2_name,
       studentMark: req.body.level_2_mark,
       isTaken: true,
       examDate: req.body.level_2_year
     }
-    student.exams.push(exam2);
+
   }
 
   if(req.body.isExam3Checked){
-    const exam3 = {
+    student.exam_level_3 = {
       name: req.body.level_3_name,
       studentMark: req.body.level_3_mark,
       isTaken: true,
       examDate: req.body.level_3_year
     }
-    student.exams.push(exam3);
+
   }
   try {
     await student.save();
@@ -95,16 +94,12 @@ router.get('/:id', async (req, res) => {
   try {
     const student = await Student.findById(req.params.id);
     const courses = await Student.findById(req.params.id);
-    // const exams = await Exam.find({students: studentId});
-    const exams = await Exam.students.id(req.params.id);
-    console.log(exams) //TODO
     res.render('students/show', {
       title: 'عرض بيانات طالب',
       student: student,
       momentHijri: momentHijri,
       user: null,
-      enrolledCourses: courses,
-      takenExams: exams
+      enrolledCourses: courses
     });
 
   } catch(err){
@@ -118,7 +113,12 @@ router.get('/:id', async (req, res) => {
 router.get('/:id/edit', async (req, res) => {
   try {
     const student = await Student.findById(req.params.id);
-    res.render('students/edit', { title: 'تعديل بيانات طالب', student: student });
+    res.render('students/edit', { 
+      title: 'تعديل بيانات طالب',
+       student: student,
+        momentHijri: momentHijri,
+        user: null
+      });
   } catch{
     res.redirect('/students');
   }
@@ -131,19 +131,65 @@ router.put('/:id', async (req, res) => {
     student = await Student.findById(req.params.id);
     student.name = req.body.name;
     student.school = req.body.school;
-    student.nationalID = req.body.nationalID;
     student.updatedAt = Date.now();
-    student.isActive = req.body.isActive;
+    student.nationalID = req.body.nationalID;
+    if(req.body.isActive){
+      student.isActive = true;
+    }else {
+      student.isActive = false;
+    }
+    console.log(req.body.isExam1Checked, !req.body.isExam1Checked);
+    console.log(req.body.isExam2Checked);
+    console.log(req.body.isExam3Checked);
+
+    if (!req.body.isExam1Checked){
+      console.log('don')
+      student.exam_level_1 = {isTaken:false}
+    } else{
+      student.exam_level_1 = {
+        name: req.body.level_1_name,
+        studentMark: req.body.level_1_mark,
+        isTaken: true,
+        examDate: req.body.level_1_year
+      }
+    }
+    
+    
+    if (!req.body.isExam2Checked){
+      student.exam_level_2 = {isTaken:false};
+    } else{
+      student.exam_level_2 = {
+        name: req.body.level_2_name,
+        studentMark: req.body.level_2_mark,
+        isTaken: true,
+        examDate: req.body.level_2_year
+      }
+    }
+
+    
+    if (!req.body.isExam3Checked){
+      student.exam_level_3 = {isTaken:false}
+    } else {
+      student.exam_level_3 = {
+        name: req.body.level_3_name,
+        studentMark: req.body.level_3_mark,
+        isTaken: true,
+        examDate: req.body.level_3_year
+      }
+    }
+
 
     await student.save();
-    res.redirect(`/students/${student.id}`);
-  } catch {
+    res.redirect(`/students/${student.id}/edit`);
+  } catch(err) {
+    console.log(err)
     if (student == null) {
       res.redirect('students');
     } else {
       res.render('students/edit', {
         title: 'تعديل بيانات طالب',
         student: student,
+        user: null,
         errorMessage: 'error updating an Student'
       })
     }
@@ -165,5 +211,37 @@ router.delete('/:id', async (req, res) => {
     }
   }
 });
+
+// TODO: DELETE THIS ROUTE
+// Delete Student exam
+router.delete('/:id/delete_exam/:examId', async (req, res) => {
+  let student;
+  const examId = req.params.examId;
+  console.log('deleting student exam');
+  try {
+    student = await Student.findById(req.params.id);
+    const newExams = arrayRemoveElement(student.exams, examId);
+    student.exams = newExams;
+    await student.save();
+    res.redirect(`/students/<%=student.id%>/edit`);
+  } catch {
+    if (student == null) {
+      res.redirect('/students');
+    } else {
+      res.redirect(`/students/${student.id}`);
+    }
+  }
+});
+
+// remove element from array
+function arrayRemoveElement(array, value) {
+
+  return array.filter(function (ele) {
+    return ele.id != value;
+  });
+
+}
+
+
 
 module.exports = router;

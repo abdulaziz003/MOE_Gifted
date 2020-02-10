@@ -50,3 +50,24 @@ function changeLevelThreeExam() {
   }
 }
 
+
+
+
+function deleteExam(id){
+
+  document.getElementById(`exam-${id}`).setAttribute('hidden', true);
+  document.getElementById(`delete-exam-button-${id}`).setAttribute('hidden', true);
+  document.getElementById(`delete-exam-checkbox-${id}`).removeAttribute('unchecked');
+  document.getElementById(`delete-exam-checkbox-${id}`).setAttribute('checked', true);
+  document.getElementById(`undo-delete-exam-button-${id}`).removeAttribute('hidden');
+  
+  
+}
+
+function undoDeleteExam(id){
+  document.getElementById(`exam-${id}`).removeAttribute('hidden');
+  document.getElementById(`delete-exam-button-${id}`).removeAttribute('hidden');
+  document.getElementById(`delete-exam-checkbox-${id}`).removeAttribute('checked');
+  document.getElementById(`delete-exam-checkbox-${id}`).setAttribute('unchecked', true);
+  document.getElementById(`undo-delete-exam-button-${id}`).setAttribute('hidden', true);
+}
