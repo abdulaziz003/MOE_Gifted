@@ -9,6 +9,8 @@ const Student = require('../models/Student');
 
 // Get all Courses Route
 router.get('/', async (req, res) => {
+  const student = new Student({});
+  console.log(student);
   let searchOptions = {};
   if (req.query.name != null && req.query.name !== '') {
     searchOptions.name = new RegExp(req.query.name, 'i');// i means not case sensitive 
@@ -27,15 +29,32 @@ router.get('/', async (req, res) => {
 
 // POST - Create new Course function Router
 router.post('/', async (req, res) => {
+  let student = new Student({});
   const course = new Course({
     name: req.body.name,
     duration: req.body.duration,
     location: req.body.location,
     publishedAt: req.body.publishedAt
   });
+  const studentsList = req.body.studentInCourse;
+  let isAnArray = Array.isArray(studentsList);
   try {
-    const newCourse = await course.save();
-    res.redirect(`courses/${newCourse.id}`);
+    if(isAnArray){
+      studentsList.forEach(async studentId => {
+        course.students.push(studentId);
+        student = await Student.findById(studentId);
+        student.courses.push(course.id);
+        await student.save();
+      });
+      await course.save();
+    }else{
+      course.students.push(studentsList);
+      student = await Student.findById(studentsList);
+      student.courses.push(course.id);
+      await student.save();
+      await course.save();
+    }
+    res.redirect(`courses/${course.id}`);
   } catch {
     res.render('courses/new', {
       title: 'برنامج اثرائي جديد',
@@ -89,8 +108,6 @@ router.post('/:id/register', async (req, res) => {
   let course;
   let student;
   const studentsList = req.body.studentInCourse;
-  console.log(studentsList);
-  console.log(Array.isArray(studentsList));
   let isAnArray = Array.isArray(studentsList);
   try {
     if(isAnArray){
