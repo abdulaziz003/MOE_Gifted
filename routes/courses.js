@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
   try {
     const courses = await Course.find(searchOptions);
     res.render('courses/index', {
-      title: 'جميع الدورات',
+      title: 'جميع البرامج',
       courses: courses,
       searchOptions: req.query
     });
@@ -30,6 +30,7 @@ router.post('/', async (req, res) => {
   const course = new Course({
     name: req.body.name,
     duration: req.body.duration,
+    location: req.body.location,
     publishedAt: req.body.publishedAt
   });
   try {
@@ -37,7 +38,7 @@ router.post('/', async (req, res) => {
     res.redirect(`courses/${newCourse.id}`);
   } catch {
     res.render('courses/new', {
-      title: 'دورة جديدة',
+      title: 'برنامج اثرائي جديد',
       course: course,
       errorMessage: 'error creating Course'
     })
@@ -45,8 +46,9 @@ router.post('/', async (req, res) => {
 });
 
 // Display Create new Course Form Route
-router.get('/new', (req, res) => {
-  res.render('courses/new', { title: 'دورة جديدة', course: new Course() });
+router.get('/new',async (req, res) => {
+  const students = await Student.find({});
+  res.render('courses/new', { title: 'برنامج اثرائي جديد', course: new Course(), students: students });
 });
 
 
@@ -55,7 +57,7 @@ router.get('/:id', async (req, res) => {
   try {
     const course = await Course.findById(req.params.id);
     res.render('courses/show', {
-      title: 'عرض بيانات دورة',
+      title: 'عرض بيانات البرنامج',
       course: course,
       momentHijri: momentHijri,
       user: null
@@ -72,7 +74,7 @@ router.get('/:id/register', async (req, res) => {
     const course = await Course.findById(req.params.id);
     const students = await Student.find({});
     res.render('courses/register', {
-      title: 'تسجيل طلاب بالدورة',
+      title: 'تسجيل طلاب بالبرنامج',
       course: course,
       students: students,
       momentHijri: momentHijri
@@ -82,7 +84,7 @@ router.get('/:id/register', async (req, res) => {
   }
 });
 
-// Show adding students to Course
+//  adding students to Course
 router.post('/:id/register', async (req, res) => {
   let course;
   let student;
@@ -115,19 +117,6 @@ router.post('/:id/register', async (req, res) => {
   }
 });
 
-// Show adding students to Course
-router.get('/:id/register', async (req, res) => {
-  try {
-    const course = await Course.findById(req.params.id);
-    res.render('courses/register', {
-      title: 'تسجيل طلاب بالدورة',
-      course: course,
-      momentHijri: momentHijri
-    });
-  } catch{
-    res.redirect('/courses');
-  }
-});
 
 
 // Edit Course
@@ -135,7 +124,7 @@ router.get('/:id/edit', async (req, res) => {
   try {
     const course = await Course.findById(req.params.id);
     res.render('courses/edit', { 
-      title: 'تعديل بيانات دورة',
+      title: 'تعديل بيانات البرنامج',
       course: course,
       momentHijri: momentHijri,
       user: null 
@@ -152,6 +141,7 @@ router.put('/:id', async (req, res) => {
     course = await Course.findById(req.params.id);
     course.name = req.body.name;
     course.duration = req.body.duration;
+    course.location = req.body.location;
     course.publishedAt = req.body.publishedAt;
     course.updatedAt = Date.now();
     if(req.body.isActiveToggle){
@@ -166,7 +156,7 @@ router.put('/:id', async (req, res) => {
       res.redirect('courses');
     } else {
       res.render('courses/edit', {
-        title: 'تعديل بيانات دورة',
+        title: 'تعديل بيانات برنامج',
         course: course,
         user: null,
         momentHijri: momentHijri,

@@ -5,19 +5,7 @@
 </div>
 
 <form class="form-signin" action="/courses/<%= course.id %>/register" method="POST">
-  <select name="studentInCourse" class="custom-select" multiple>
-    <% students.forEach(student => { %>
-      <% if (course.students.includes(student.id)){ %>
-        <option selected disabled value="<%= student.id %>">
-          <%= student.name %>
-        </option>
-      <% } else { %>
-        <option value="<%= student.id %>">
-              <%= student.name %>
-        </option>
-      <% } %>
-    <% }) %>
-  </select>
+  <%- include('_register_fields') %> 
   <div class="text-center mt-5">
     <button class="btn btn-info" type="submit">حفظ</button>
     <a class="btn btn-warning" href="/courses">العودة</a>

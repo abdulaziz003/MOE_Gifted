@@ -1,0 +1,14 @@
+<label for="">اضافة طلاب</label>
+<select name="studentInCourse" class="custom-select" multiple>
+  <% students.forEach(student => { %>
+    <% if (course.students.includes(student.id)){ %>
+      <option selected disabled value="<%= student.id %>">
+        <%= student.name %>
+      </option>
+      <% } else { %>
+        <option value="<%= student.id %>">
+          <%= student.name %>
+        </option>
+        <% } %>
+          <% }) %>
+</select>
