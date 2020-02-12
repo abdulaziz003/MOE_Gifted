@@ -48,17 +48,23 @@ router.post('/', async (req, res) => {
       });
       await course.save();
     }else{
-      course.students.push(studentsList);
-      student = await Student.findById(studentsList);
-      student.courses.push(course.id);
-      await student.save();
-      await course.save();
+      if(studentsList){
+        course.students.push(studentsList);
+        student = await Student.findById(studentsList);
+        student.courses.push(course.id);
+        await student.save();
+        await course.save();
+      }else{
+        await course.save();
+      }
     }
     res.redirect(`courses/${course.id}`);
   } catch {
+    const students = await Student.find({});
     res.render('courses/new', {
       title: 'برنامج اثرائي جديد',
       course: course,
+      students: students,
       errorMessage: 'error creating Course'
     })
   }
