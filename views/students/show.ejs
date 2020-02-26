@@ -98,7 +98,10 @@
                     <label>الدورات</label>
                   </div>
                   <div class="col-sm-8 align-self-center">
-                    <input class="form-control mt-2" placeholder="الدورات" value="<%= student.courses%>" disabled>
+                    <% enrolledCourses.forEach(course => { %>
+                      <input class="form-control mt-2" placeholder="الدورات" value="<%= course.name%>" disabled>
+                      <button class="btn btn-sm btn-warning mt-2">طباعة الشهادة</button>
+                    <% }) %>
                   </div>
                 </div>
 

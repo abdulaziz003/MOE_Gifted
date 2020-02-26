@@ -93,13 +93,13 @@ router.get('/:id', async (req, res) => {
   const studentId = req.params.id
   try {
     const student = await Student.findById(req.params.id);
-    const courses = await Student.findById(req.params.id);
+    const courses = await Student.findById(req.params.id).populate('courses').exec();
     res.render('students/show', {
       title: 'عرض بيانات طالب',
       student: student,
       momentHijri: momentHijri,
       user: null,
-      enrolledCourses: courses
+      enrolledCourses: courses.courses
     });
 
   } catch(err){

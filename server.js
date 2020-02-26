@@ -11,9 +11,7 @@ const methodOverride = require('method-override');
 const morgan = require('morgan');
 const helmet = require('helmet');
 
-
 // Connect to db
-
 // Check if we are running in the dev or local
 if (process.env.NODE_ENV !== 'production') {
   mongoose.connect("mongodb://localhost/moe_gifted", { useNewUrlParser: true, useUnifiedTopology: true });
@@ -40,6 +38,7 @@ app.set("view engine", "ejs");
 
 // Body parser
 app.use(express.urlencoded({ extended: false }));
+app.use(express.json()); //Used to parse JSON bodies
 // using method-override to send request to the server like 'delete' and 'put'
 app.use(methodOverride('_method'));
 
@@ -55,6 +54,6 @@ app.use("/courses", require("./routes/courses"));
 app.use('/certificates', require('./routes/certificates'));
 
 
-// Listen on Port 5000
+// Listen on Port 7070
 // Run the server to listen on the PORT
-app.listen(process.env.PORT || 5000);
+app.listen(process.env.PORT || 7070);
