@@ -62,6 +62,10 @@ const studentSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Course'
   }],
+  certificates: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Certificate'
+  }],
   isActive: {
     type: Boolean,
     default: true

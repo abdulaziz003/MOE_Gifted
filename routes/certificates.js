@@ -17,14 +17,11 @@ router.post('/create-pdf', async (req, res) => {
   try {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
-
-    const temp = {name: 'try'};
-
     await page.setContent(jsTemplate(req.body));
     await page.emulateMedia('screen');
     res.send(
       await page.pdf({
-        path: 'try.pdf',
+        path: `./students_certificates/try.pdf`,
         format: "A4",
         landscape: true,
         printBackground: true
@@ -35,7 +32,7 @@ router.post('/create-pdf', async (req, res) => {
 });
 
 router.get('/fetch-pdf', (req, res) => {
-  res.sendFile(`${__dirname}/try.pdf`)
+  res.sendFile(`/Users/ABDULAZIZ/Desktop/web_dev/js/moe_gifted/students_certificates/try.pdf`)
 })
 
 

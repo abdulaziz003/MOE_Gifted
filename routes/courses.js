@@ -6,6 +6,7 @@ let momentHijri = require("moment-hijri");
 // Import Course model to create new Course
 const Course = require('../models/Course');
 const Student = require('../models/Student');
+const Certificate = require('../models/Certificate');
 
 // Get all Courses Route
 router.get('/', async (req, res) => {
@@ -113,23 +114,34 @@ router.get('/:id/register', async (req, res) => {
 router.post('/:id/register', async (req, res) => {
   let course;
   let student;
+  let certificate;
   const studentsList = req.body.studentInCourse;
   let isAnArray = Array.isArray(studentsList);
   try {
     if(isAnArray){
       course = await Course.findById(req.params.id);
       studentsList.forEach(async studentId =>{
+        certificate = new Certificate({
+          course: req.params.id,
+          student: studentId
+        });
         course.students.push(studentId);
         student = await Student.findById(studentId);
         student.courses.push(course.id);
         await student.save();
+        await certificate.save();
       });
       await course.save();
     } else {
+      certificate = new Certificate({
+        course: req.params.id,
+        student: studentsList
+      });
       course = await Course.findById(req.params.id);
       course.students.push(studentsList);
       student = await Student.findById(studentsList);
       student.courses.push(course.id);
+      await certificate.save();
       await student.save();
       await course.save();
     }

@@ -90,16 +90,13 @@ router.get('/new', async (req, res) => {
 
 // Show Student
 router.get('/:id', async (req, res) => {
-  const studentId = req.params.id
   try {
-    const student = await Student.findById(req.params.id);
-    const courses = await Student.findById(req.params.id).populate('courses').exec();
+    const student = await Student.findById(req.params.id).populate('courses').exec();
     res.render('students/show', {
       title: 'عرض بيانات طالب',
       student: student,
       momentHijri: momentHijri,
-      user: null,
-      enrolledCourses: courses.courses
+      user: null
     });
 
   } catch(err){
@@ -143,7 +140,6 @@ router.put('/:id', async (req, res) => {
     console.log(req.body.isExam3Checked);
 
     if (!req.body.isExam1Checked){
-      console.log('don')
       student.exam_level_1 = {isTaken:false}
     } else{
       student.exam_level_1 = {
