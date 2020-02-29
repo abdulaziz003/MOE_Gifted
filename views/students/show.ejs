@@ -97,17 +97,8 @@
                   <div class="col-sm-2 align-self-center">
                     <label>الدورات</label>
                   </div>
-                  <div class="col-sm-8 align-self-center">
-                    <input hidden value="<%= student.courses.length %>" type="text" name="length" id="coursesLength">
-                    <% student.courses.forEach((course, index) => { %>
-                      <input class="form-control mt-2" placeholder="الدورات" value="<%= course.name%>" disabled>
-                      <input type="text" name="<%= student.name %>" value="<%= student.name %>" id="studentName_<%= index %>" hidden>
-                      <input type="text" name="<%= student.school %>" value="<%= student.school %>" id="studentSchool_<%= index %>" hidden>
-                      <input type="text" name="<%= course.name %>" value="<%= course.name %>" id="courseName_<%= index %>" hidden>
-                      <input type="text" name="<%= course.duration %>" value="<%= course.duration %>" id="courseDuration_<%= index %>" hidden>
-                      <input type="text" name="<%= course.location %>" value="<%= course.location %>" id="courseLocation_<%= index %>" hidden>
-                      <button class="btn btn-sm btn-warning mt-2" id="print_cert_<%= index %>">طباعة الشهادة</button>
-                    <% }) %>
+                  <div class="col-sm-8 align-self-center">            
+                        <%- include('_form_print_cert') %>
                   </div>
                 </div>
 
@@ -125,5 +116,3 @@
                 
                 <a class="btn btn-info mt-5" href="/students">العودة</a>
 </div>
-
-<script src="/js/printCert.js"></script>

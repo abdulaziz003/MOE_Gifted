@@ -1,5 +1,12 @@
 
-<input type="text" name="<%= student.name %> " id="" hidden>
-<input type="text" name="<%= course.name %> " id="" hidden>
-<input type="text" name="<%= course.duration %> " id="" hidden>
-<input type="text" name="<%= course.location %> " id="" hidden>
+  <% student.courses.forEach((course, index) => { %>
+<form class="inline-form" action="/certificates/create-pdf" method="post" id="form-<%= index %>">
+    <input class="form-control mt-2" placeholder="الدورات" value="<%= course.name%>" disabled>
+    <input type="text" name="studentName" value="<%= student.name %>" id="studentName_<%= index %>" hidden>
+    <input type="text" name="studentSchool" value="<%= student.school %>" id="studentSchool_<%= index %>" hidden>
+    <input type="text" name="courseName" value="<%= course.name %>" id="courseName_<%= index %>" hidden>
+    <input type="text" name="courseDuration" value="<%= course.duration %>" id="courseDuration_<%= index %>" hidden>
+    <input type="text" name="courseLocation" value="<%= course.location %>" id="courseLocation_<%= index %>" hidden>
+    <button class="btn btn-sm btn-warning mt-2" id="print_cert_<%= index %>">طباعة الشهادة</button>
+  </form>
+  <% }) %>
